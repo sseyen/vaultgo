@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Dashboard</h2>
+<p>Welcome, {{ user.username }}!</p>
+
+<div class="toolbar" hidden>
+  <form
+    method="post"
+    enctype="multipart/form-data"
+    class="upload-form"
+    id="upload-form"
+  >
+    {% csrf_token %}
+    <input id="file-input" type="file" name="file" hidden />
+  </form>
+  <form method="post" class="folder-form" id="folder-form">
+    {% csrf_token %}
+    <input type="hidden" name="create_folder" value="1" />
+    <input type="hidden" name="name" id="folder-name-field" />
+  </form>
+</div>
+<div id="folder-modal" hidden>
+  <div class="modal-content">
+    <input type="text" id="folder-name-input" placeholder="Folder name" />
+    <div class="modal-actions">
+      <button type="button" id="folder-create-btn" class="btn btn-primary">
+        Create
+      </button>
+      <button type="button" id="folder-cancel-btn" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="rename-modal" hidden>
+  <div class="modal-content">
+    <input type="text" id="rename-input" placeholder="New name" />
+    <div class="modal-actions">
+      <button type="button" id="rename-confirm-btn" class="btn btn-primary">
+        Rename
+      </button>
+      <button type="button" id="rename-cancel-btn" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+{% if current_folder %}
+<p>
+  <a
+    id="parent-drop"
+    class="drop-target"
+    data-folder-id="{% if current_folder.parent %}{{ current_folder.parent.id }}{% endif %}"
+    href="/dashboard/{% if current_folder.parent %}?folder={{ current_folder.parent.id }}{% endif %}"
+    >..</a
+  >
+  / {{ current_folder.name }}
+</p>
+{% endif %}
+
+<div class="file-manager">
+  <div id="upload-drop" class="drop-zone">Click or drop files to upload</div>
+
+  <ul class="file-list">
+    <li id="new-folder" class="folder-item">➕ Create folder</li>
+    {% for folder in folders %}
+    <li class="folder-item" data-folder-id="{{ folder.id }}" draggable="true">
+      <button class="file-menu-btn" type="button">⋮</button>
+      <div class="file-menu" hidden>
+        <a
+          href="#"
+          class="rename-link"
+          data-url="{% url 'folder_detail' folder.id %}"
+          data-field="name"
+          data-current="{{ folder.name|escape }}"
+          >Rename</a
+        >
+        <form
+          method="post"
+          action="{% url 'folder_detail' folder.id %}"
+          class="delete-form"
+        >
+          {% csrf_token %}
+          <input type="hidden" name="delete" value="1" />
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+      <div class="file-preview">
+        <span class="file-icon">📁</span>
+      </div>
+      <a class="file-name" href="?folder={{ folder.id }}">{{ folder.name }}</a>
+    </li>
+    {% endfor %} {% for f in files %}
+    <li class="file-item" data-file-id="{{ f.pk }}" draggable="true">
+      <div class="file-preview">
+        {% if f.is_image %}
+        <img
+          src="{% url 'view_file' f.pk %}"
+          alt="{{ f.display_name }}"
+          class="file-thumb-img"
+        />
+        <a href="{% url 'view_file' f.pk %}" target="_blank" class="image-name"
+          >{{ f.display_name|default:f.filename }}</a
+        >
+        {% else %}
+        <span class="file-icon">📄</span>
+        {% endif %}
+        <button class="file-menu-btn" type="button">⋮</button>
+        <div class="file-menu" hidden>
+          <a
+            href="#"
+            class="rename-link"
+            data-url="{% url 'file_detail' f.pk %}"
+            data-field="display_name"
+            data-current="{{ f.display_name|escape }}"
+            >Rename</a
+          >
+          <a href="{% url 'download_file' f.pk %}">Download</a>
+          <form
+            method="post"
+            action="{% url 'file_detail' f.pk %}"
+            class="delete-form"
+          >
+            {% csrf_token %}
+            <input type="hidden" name="delete" value="1" />
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+      <a class="file-name" href="{% url 'view_file' f.pk %}" target="_blank"
+        >{{ f.display_name|default:f.filename }}</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

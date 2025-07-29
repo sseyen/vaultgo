@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ folder.name }}</h2>
+<form method="post" style="margin-top: 1rem">
+  {% csrf_token %} {{ form.name.label_tag }} {{ form.name }}
+  <button type="submit" class="btn">Rename</button>
+  <button type="submit" name="delete" value="1" class="btn">Delete</button>
+</form>
+{% endblock %}

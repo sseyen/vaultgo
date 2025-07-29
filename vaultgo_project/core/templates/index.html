@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="hero">
+  <h1>Your files. Your cloud. Your peace of mind.</h1>
+  <p>
+    VaultGo is your personal cloud. Store photos, documents and any other files
+    without worrying about physical storage or lost devices.
+  </p>
+  <a
+    href="{% if user.is_authenticated %}/dashboard/{% else %}/signup/{% endif %}"
+    class="btn btn-primary"
+    >Get started</a
+  >
+</section>
+<section class="features">
+  <div class="feature">
+    <h3>Accessible</h3>
+    <p>
+      Access your VaultGo storage from any device, anywhere in the world.
+      Whether you're traveling or working remotely, your files are always within
+      reach through a simple web interface and design.
+    </p>
+  </div>
+  <div class="feature">
+    <h3>Secure</h3>
+    <p>
+      Security is at our core. Each file is encrypted during upload and stored
+      with access controls. Only you can see your data, giving peace of mind
+      your information remains private.
+    </p>
+  </div>
+  <div class="feature">
+    <h3>Simple</h3>
+    <p>
+      VaultGo offers a clean interface that's easy to learn. Upload, organize,
+      and download without clutter or confusion. Everything is streamlined so
+      you spend time using your files, not managing them.
+    </p>
+  </div>
+</section>
+{% endblock %}

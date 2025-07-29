@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VaultGo</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'img/logo_vaultgo.png' %}"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header>
+        <nav>
+          <div class="nav-left">
+            <img
+              src="{% static 'img/logo_vaultgo.png' %}"
+              alt="VaultGo logo"
+              class="logo"
+            />
+            <a href="/">VaultGo</a>
+          </div>
+          <div class="nav-right">
+            {% if user.is_authenticated %}
+            <a href="/dashboard/">Dashboard</a>
+            <a href="{% url 'logout' %}">Log out</a>
+            {% else %}
+            <a href="{% url 'login' %}">Log in</a>
+            <a href="/signup/">Sign up</a>
+            {% endif %}
+          </div>
+        </nav>
+      </header>
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+      <footer>
+        <a href="/">X</a>
+        <a href="/">GitHub</a>
+        <a href="/">Author</a>
+        <a href="/">Buy me a coffee</a>
+        <a href="/">Support</a>
+      </footer>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

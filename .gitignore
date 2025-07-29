@@ -1,0 +1,7 @@
+.DS_Store
+
+__pycache__/
+*.pyc
+
+vaultgo_project/media/
+vaultgo_project/staticfiles/

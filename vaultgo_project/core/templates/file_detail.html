@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ file.display_name }}</h2>
+<div class="file-viewer">
+  {% if is_image %}
+  <img src="{% url 'view_file' file.pk %}" style="max-width: 100%" />
+  {% elif is_pdf %}
+  <embed
+    src="{% url 'view_file' file.pk %}"
+    type="application/pdf"
+    width="100%"
+    height="600px"
+  />
+  {% else %}
+  <p>
+    No preview available. <a href="{% url 'view_file' file.pk %}">Download</a>
+  </p>
+  {% endif %}
+</div>
+
+<form method="post" style="margin-top: 1rem">
+  {% csrf_token %} {{ form.display_name.label_tag }} {{ form.display_name }}
+  <button type="submit" class="btn">Rename</button>
+  <button type="submit" name="delete" value="1" class="btn">Delete</button>
+  <a href="{% url 'download_file' file.pk %}" class="btn">Download</a>
+</form>
+{% endblock %}
