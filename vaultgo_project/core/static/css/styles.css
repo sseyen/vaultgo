@@ -150,7 +150,22 @@ a {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+.folder-item a {
+  color: #f97b8b;
+  text-align: center;
+  font-size: 0.8rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
 .file-menu-btn {
   position: absolute;
