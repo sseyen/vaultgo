@@ -169,6 +169,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       folderModal.setAttribute("hidden", "");
     });
+    
+    folderInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        folderCreate.click();
+      } else if (e.key === "Escape") {
+        folderCancel.click();
+      }
+    });
   }
 
   if (renameModal && renameInput && renameConfirm && renameCancel) {
@@ -202,6 +210,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (res.ok) window.location.reload();
       });
       renameModal.setAttribute("hidden", "");
+    });
+    
+    renameInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        renameConfirm.click();
+      } else if (e.key === "Escape") {
+        renameCancel.click();
+      }
     });
   }
 
