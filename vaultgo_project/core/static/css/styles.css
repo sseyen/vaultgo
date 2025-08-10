@@ -108,7 +108,7 @@ a {
   transition: background 0.2s;
 }
 .file-item {
-  cursor: grab;
+  cursor: default;
 }
 .file-item.dragging {
   opacity: 0.5;
@@ -153,9 +153,13 @@ a {
   line-clamp: 2;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
+  cursor: default;
 }
 .file-item:has(.file-thumb-img) .file-name {
   display: none;
+}
+.folder-item {
+  cursor: default;
 }
 .folder-item a {
   color: #f97b8b;
@@ -169,6 +173,7 @@ a {
   width: 100%;
   box-sizing: border-box;
   display: block;
+  cursor: default;
 }
 .file-menu-btn {
   position: absolute;
@@ -219,9 +224,6 @@ a {
 }
 .file-actions a {
   margin-left: 0.5rem;
-}
-.folder-item {
-  cursor: grab;
 }
 .folder-item.drag-over {
   background: #3a3a3a;

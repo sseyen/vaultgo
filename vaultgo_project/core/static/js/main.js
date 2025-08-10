@@ -32,6 +32,20 @@ document.addEventListener("DOMContentLoaded", () => {
     item.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text/plain", `file:${item.dataset.fileId}`);
     });
+    
+    item.addEventListener("click", (e) => {
+      if (e.target.closest(".file-menu-btn") || e.target.closest(".file-menu")) {
+        return;
+      }
+      if (item.classList.contains("dragging")) {
+        return;
+      }
+      const fileLink = item.querySelector(".file-name");
+      if (fileLink) {
+        fileLink.click();
+      }
+    });
+    
     const menuBtn = item.querySelector(".file-menu-btn");
     const menu = item.querySelector(".file-menu");
     if (menuBtn && menu) {
@@ -53,6 +67,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (id) {
       item.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", `folder:${id}`);
+      });
+      
+      item.addEventListener("click", (e) => {
+        if (e.target.closest(".file-menu-btn") || e.target.closest(".file-menu")) {
+          return;
+        }
+        if (item.classList.contains("dragging")) {
+          return;
+        }
+        const folderLink = item.querySelector(".file-name");
+        if (folderLink) {
+          folderLink.click();
+        }
       });
     }
     const menuBtn = item.querySelector(".file-menu-btn");
