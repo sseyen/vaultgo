@@ -10,7 +10,7 @@
   <a
     href="{% if user.is_authenticated %}/dashboard/{% else %}/signup/{% endif %}"
     class="btn btn-primary"
-    >Get started</a
+    >{% if user.is_authenticated %}Dashboard{% else %}Get started{% endif %}</a
   >
 </section>
 <section class="features">
