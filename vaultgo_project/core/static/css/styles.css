@@ -154,6 +154,9 @@ a {
   -webkit-box-orient: vertical;
   word-wrap: break-word;
 }
+.file-item:has(.file-thumb-img) .file-name {
+  display: none;
+}
 .folder-item a {
   color: #f97b8b;
   text-align: center;
