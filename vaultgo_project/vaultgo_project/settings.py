@@ -2,9 +2,12 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = "replace-this-key"
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is required")
+
+DEBUG = os.environ.get("DEBUG", "True")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -49,9 +52,9 @@ WSGI_APPLICATION = "vaultgo_project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB", "vaultgo"),
-        "USER": os.environ.get("POSTGRES_USER", "vaultgo"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "vaultgo"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
         "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
@@ -60,9 +63,9 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = []
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.Argon2PasswordHasher"]
 
-FILE_ENCRYPTION_KEY = os.environ.get(
-    "FILE_ENCRYPTION_KEY", "2yW4C6+ctm2rJ/jMEVN6a8GN28AL5OHnM4oSwHbV0CY="
-)
+FILE_ENCRYPTION_KEY = os.environ.get("FILE_ENCRYPTION_KEY")
+if not FILE_ENCRYPTION_KEY:
+    raise ValueError("FILE_ENCRYPTION_KEY environment variable is required")
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
