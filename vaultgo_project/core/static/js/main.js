@@ -126,7 +126,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   folders.forEach((folder) => enableDrop(folder, folder.dataset.folderId));
-  if (parentDrop) enableDrop(parentDrop, parentDrop.dataset.folderId);
+  if (parentDrop) {
+    enableDrop(parentDrop, parentDrop.dataset.folderId);
+    
+    parentDrop.addEventListener("click", (e) => {
+      if (e.target.closest(".file-menu-btn") || e.target.closest(".file-menu")) {
+        return;
+      }
+      const parentLink = parentDrop.querySelector(".file-name");
+      if (parentLink) {
+        parentLink.click();
+      }
+    });
+  }
 
   if (uploadDrop) {
     if (fileInput) {

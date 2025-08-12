@@ -43,24 +43,23 @@
   </div>
 </div>
 
-{% if current_folder %}
-<p>
-  <a
-    id="parent-drop"
-    class="drop-target"
-    data-folder-id="{% if current_folder.parent %}{{ current_folder.parent.id }}{% endif %}"
-    href="/dashboard/{% if current_folder.parent %}?folder={{ current_folder.parent.id }}{% endif %}"
-    >..</a
-  >
-  / {{ current_folder.name }}
-</p>
-{% endif %}
-
 <div class="file-manager">
   <div id="upload-drop" class="drop-zone">Click or drop files to upload</div>
 
   <ul class="file-list">
     <li id="new-folder" class="folder-item">➕ Create folder</li>
+    {% if current_folder %}
+    <li 
+      id="parent-drop" 
+      class="folder-item drop-target" 
+      data-folder-id="{% if current_folder.parent %}{{ current_folder.parent.id }}{% endif %}"
+    >
+      <div class="file-preview">
+        <span class="file-icon">📁</span>
+      </div>
+      <a class="file-name" href="/dashboard/{% if current_folder.parent %}?folder={{ current_folder.parent.id }}{% endif %}">..</a>
+    </li>
+    {% endif %}
     {% for folder in folders %}
     <li class="folder-item" data-folder-id="{{ folder.id }}" draggable="true">
       <button class="file-menu-btn" type="button">⋮</button>
