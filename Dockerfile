@@ -12,3 +12,4 @@ WORKDIR /app/vaultgo_project
 CMD ["sh", "-c", "python manage.py migrate \
     && python manage.py collectstatic --noinput \
     && python manage.py runserver 0.0.0.0:8000"]
+    # && gunicorn vaultgo_project.wsgi:application --bind 0.0.0.0:8000"]
