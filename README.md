@@ -7,17 +7,27 @@ VaultGo is a minimal cloud storage service built with Django and PostgreSQL. Upl
 - PostgreSQL
 - Docker Compose
 
-## How to run
+## Quick Start
+
+🚀 **Automated setup with secure configuration:**
 
 ```bash
+./setup.sh
 docker compose build
 docker compose up
 ```
 
-You can also run the application without Docker:
+The setup script automatically generates:
+- Secure Django secret key
+- File encryption key
+- Random database password
+- Environment configuration
 
-```bash
-pip install -r requirements.txt
-cd vaultgo_project
-python manage.py runserver 0.0.0.0:8000
-```
+## Features
+
+- 🔒 **File Encryption**: All uploaded files are encrypted at rest
+- 👤 **User Authentication**: Secure user accounts with Argon2 password hashing
+- 📁 **Folder Management**: Create, organize, and navigate folders
+- 🖱️ **Drag & Drop**: Move files and folders with drag and drop
+- ⌨️ **Keyboard Shortcuts**: Use Enter/Escape for quick actions
+- 🎨 **Clean UI**: Dark theme with intuitive file management
